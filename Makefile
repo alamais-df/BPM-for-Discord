@@ -77,7 +77,7 @@ DISCORD_SETTINGS_SCRIPT := \
 
 DISCORD_INSTALLER := \
     discord/installer/constants.js discord/installer/index.js discord/installer/package.json \
-    discord/installer/install_mac.sh discord/installer/install_windows.bat
+    discord/installer/install_mac.command discord/installer/install_windows.bat discord/installer/win_ps.ps1
 
 DISCORD_INTEGRATION := \
 	discord/integration/package.json discord/integration/bpm.js discord/integration/bpm-settings.js \
@@ -213,7 +213,8 @@ build/discord/installer: $(DISCORD_INSTALLER)
 	cp discord/installer/package.json build/discord/package.json
 	cp discord/installer/constants.js build/discord/constants.js
 	cp discord/installer/install_windows.bat build/discord/install_windows.bat
-	cp discord/installer/install_mac.sh build/discord/install_mac.sh
+	cp discord/installer/win_ps.ps1 build/discord/win_ps.ps1
+	cp discord/installer/install_mac.command build/discord/install_mac.command
 	
 	cd build/discord && npm install
 
@@ -273,8 +274,8 @@ discord/release: discord
 		exit 1; \
 	fi
 	#Push a tag to git
-	git tag -a "$(DISCORD_VERSION)" -m "Release of discord version $(DISCORD_VERSION)" 
-	git push origin $(DISCORD_VERSION) 
+	#git tag -a "$(DISCORD_VERSION)" -m "Release of discord version $(DISCORD_VERSION)" 
+	#git push origin $(DISCORD_VERSION) 
 	
 	#Create a 7z archive
 	rm -rf ./build/BPM\ for\ Discord\ $(DISCORD_VERSION).7z
