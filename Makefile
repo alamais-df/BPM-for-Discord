@@ -41,7 +41,7 @@
 
 VERSION = 66.236
 
-DISCORD_VERSION = discord-v0.5.0-beta
+DISCORD_VERSION = discord-v0.5.1-beta
 
 CONTENT_SCRIPT := \
     addon/bpm-header.js addon/bpm-utils.js addon/bpm-browser.js \
@@ -272,8 +272,8 @@ discord/release: discord
 		exit 1; \
 	fi
 	#Push a tag to git
-	#git tag -a "$(DISCORD_VERSION)" -m "Release of discord version $(DISCORD_VERSION)" 
-	#git push origin $(DISCORD_VERSION) 
+	git tag -a "$(DISCORD_VERSION)" -m "Release of discord version $(DISCORD_VERSION)" 
+	git push origin $(DISCORD_VERSION) 
 	
 	#Create a 7z archive
 	rm -rf ./build/BPM\ for\ Discord\ $(DISCORD_VERSION).7z
