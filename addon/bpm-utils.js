@@ -278,11 +278,27 @@ function walk_dom(root, node_filter, process, end, node, depth) {
  * N.b. have to do stupid things with event names due to AMO.
  */
 function enable_drag(element, start_callback, callback) {
-    var start_x, start_y;
+    var CONTAINER_PADDING = 10,
+        maxLeft = CONTAINER_PADDING,
+        maxUp = CONTAINER_PADDING;
+    
+    var start_x, start_y, maxRight, maxDown;
 
     var on_mouse_move = catch_errors(function(event) {
         var dx = event.clientX - start_x;
         var dy = event.clientY - start_y;
+        maxRight = window.innerWidth - CONTAINER_PADDING;
+        maxDown = window.innerHeight - CONTAINER_PADDING;
+        if(event.clientX <= maxLeft) {
+            dx = maxLeft - start_x;
+        } else if (event.clientX >= maxRight) {
+            dx = maxRight - start_x;
+        }
+        if(event.clientY <= maxUp) {
+            dy = maxUp - start_y;
+        } else if (event.clientY >= maxDown) {
+            dy = maxDown - start_y;
+        }
         callback(event, dx, dy);
     });
 
@@ -305,10 +321,10 @@ function enable_drag(element, start_callback, callback) {
  */
 function make_movable(element, container, callback) {
     var start_x, start_y;
-
     enable_drag(element, function(event) {
         start_x = parseInt(container.style.left, 10);
         start_y = parseInt(container.style.top, 10);
+
     }, function(event, dx, dy) {
         var left = Math.max(start_x + dx, 0);
         var top = Math.max(start_y + dy, 0);
