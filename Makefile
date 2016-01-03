@@ -77,7 +77,7 @@ DISCORD_SETTINGS_SCRIPT := \
 
 DISCORD_INSTALLER := \
     discord/installer/constants.js discord/installer/index.js discord/installer/package.json \
-    discord/installer/install_mac.command discord/installer/install_windows.bat
+    discord/installer/install_mac.command discord/installer/install_windows.bat discord/installer/win_ps.ps1
 
 DISCORD_INTEGRATION := \
 	discord/integration/package.json discord/integration/bpm.js discord/integration/bpm-settings.js \
@@ -208,12 +208,11 @@ build/BPM.safariextension: $(ADDON_DATA) addon/sf-Settings.plist addon/sf-backgr
 # Note, requires node, globally installed asar (npm install asar -g)
 build/discord/installer: $(DISCORD_INSTALLER)
 	mkdir -p build/discord
-		
-	cp discord/installer/index.js build/discord/index.js
-	cp discord/installer/package.json build/discord/package.json
-	cp discord/installer/constants.js build/discord/constants.js
-	cp discord/installer/install_windows.bat build/discord/install_windows.bat
-	cp discord/installer/install_mac.command build/discord/install_mac.command
+	
+	for INSTALLER_FILE in $(DISCORD_INSTALLER); \
+	do \
+		cp $$INSTALLER_FILE build/discord/; \
+	done
 	
 	cd build/discord && npm install
 
