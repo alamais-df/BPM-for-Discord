@@ -45,11 +45,15 @@ function inject_search_box() {
     // I'd sort of prefer display:none, but then I'd have to override it
     div.style.visibility = "hidden";
     div.id = "bpm-stuff"; // Just so it's easier to find in an elements list
+    
+    //We need to put a blank target on all links in the discord client.
+    //If not, it opens the link in the client and destroys Discord
+    var blankTarget = ' target="_blank"';
+    var insertTarget = platform == "discord-ext";
 
     // NOTE: Do not add elements to this without first considering whether or
     // not they need to have "visibility: inherit;" in bpmotes.css. It probably
     // does. See the note there.
-
     var htmlArray = [
         // tabindex is a hack to make Esc work. Reddit uses this index in a
         // couple of places, so it's probably safe.
@@ -88,7 +92,7 @@ function inject_search_box() {
             '<a id="bpm-sb-helplink" href="javascript:void(0)">help</a> | ',
             '<a id="bpm-sb-optionslink" href="javascript:void(0)">bpm options</a>',
             '<span id="bpm-sb-resize"></span>',
-            '<a id="bpm-sb-srlink" href="https://www.reddit.com/r/betterponymotes">/r/betterponymotes</a>',
+            '<a id="bpm-sb-srlink"' + (insertTarget ? blankTarget : '') + ' href="https://www.reddit.com/r/betterponymotes">/r/betterponymotes</a>',
           '</div>',
         '</div>'
         ];
