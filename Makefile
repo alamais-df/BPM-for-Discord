@@ -77,13 +77,13 @@ DISCORD_SETTINGS_SCRIPT := \
 
 DISCORD_INSTALLER := \
     discord/installer/constants.js discord/installer/index.js discord/installer/package.json \
-    discord/installer/install_mac.sh discord/installer/install_windows.bat
+    discord/installer/install_mac.command discord/installer/install_windows.bat
 
 DISCORD_INTEGRATION := \
 	discord/integration/package.json discord/integration/bpm.js discord/integration/bpm-settings.js \
     discord/integration/bpm-search.js
 
-default: build/betterponymotes.xpi build/chrome.zip build/BPM.safariextension build/export.json.bz2 build/discord
+default: build/betterponymotes.xpi build/chrome.zip build/BPM.safariextension build/export.json.bz2
 
 clean:
 	rm -fr build
@@ -213,7 +213,7 @@ build/discord/installer: $(DISCORD_INSTALLER)
 	cp discord/installer/package.json build/discord/package.json
 	cp discord/installer/constants.js build/discord/constants.js
 	cp discord/installer/install_windows.bat build/discord/install_windows.bat
-	cp discord/installer/install_mac.sh build/discord/install_mac.sh
+	cp discord/installer/install_mac.command build/discord/install_mac.command
 	
 	cd build/discord && npm install
 

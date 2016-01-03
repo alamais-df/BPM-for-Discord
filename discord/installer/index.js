@@ -23,8 +23,10 @@ var os = process.platform;
 var extractPath = path.join(getDiscordPath(), 'bpm_extract');
 var packPath = path.join(getDiscordPath(), 'app.asar');
 
-var addonSourcePath = 'bpm.asar';
-var integrationSourcePath = 'integration.asar';
+var rootPath = process.argv.length > 2 ? process.argv[2] : '.';
+
+var addonSourcePath = path.join(rootPath, 'bpm.asar');
+var integrationSourcePath = path.join(rootPath, 'integration.asar');
 
 console.log('path is ' + packPath);
 console.log('addonpath is ' + getBpmDataPath());
