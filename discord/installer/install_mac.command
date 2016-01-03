@@ -1,3 +1,4 @@
+#!/bin/bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 #TODO:  Confirm this is cool with the user
