@@ -5,7 +5,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
     curl -o node.tar.gz https://nodejs.org/dist/v4.2.4/node-v4.2.4-darwin-x64.tar.gz
     echo "Unpacking node..."
     mkdir -p $DIR/extracted_node_binary
-    tar xvzf node.tar.gz -C $DIR/extracted_node_binary/
+    tar xzf node.tar.gz -C $DIR/extracted_node_binary/
     echo "Node unpacked, running installer..."
     $DIR/extracted_node_binary/node-v4.2.4-darwin-x64/bin/node $DIR/index.js $DIR
     echo "Removing node tarball and extract..."
