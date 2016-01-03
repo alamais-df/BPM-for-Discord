@@ -5,5 +5,6 @@
   "homepage": "https://github.com/ByzantineFailure/bpm",
   "repository": "https://github.com/ByzantineFailure/bpm",
   "license": "AGPL-3.0",
-  "main": "bpm.js"
+  "main": "bpm.js",
+  "README": "README.md"
 }

@@ -3,7 +3,7 @@
   "description": "BPM for Discord installer",
   "version": "0.0.1",
   "license": "AGPL-3.0",
-  "readme": "README",
+  "readme": "README.md",
   "repository": "https://github.com/ByzantineFailure/bpm",
   "scripts": {
     "lint": "jshint **.js"

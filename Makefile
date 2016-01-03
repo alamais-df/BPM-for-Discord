@@ -77,11 +77,12 @@ DISCORD_SETTINGS_SCRIPT := \
 
 DISCORD_INSTALLER := \
     discord/installer/constants.js discord/installer/index.js discord/installer/package.json \
-    discord/installer/install_mac.command discord/installer/install_windows.bat discord/installer/win_ps.ps1
+    discord/installer/install_mac.command discord/installer/install_windows.bat discord/installer/win_ps.ps1 \
+    discord/installer/README.md
 
 DISCORD_INTEGRATION := \
 	discord/integration/package.json discord/integration/bpm.js discord/integration/bpm-settings.js \
-    discord/integration/bpm-search.js
+    discord/integration/bpm-search.js discord/integration/README.md
 
 default: build/betterponymotes.xpi build/chrome.zip build/BPM.safariextension build/export.json.bz2
 
