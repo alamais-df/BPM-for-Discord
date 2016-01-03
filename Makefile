@@ -61,28 +61,6 @@ GENERATED_CSS := \
     build/gif-animotes.css build/emote-classes.css addon/bpmotes.css addon/combiners-nsfw.css \
     addon/bootstrap.css addon/options.css
 
-#Set via environment variable
-#DC_BPM_ARCHIVE_PASSWORD= 
-
-DISCORD_ADDITONAL_DATA := \
-	discord/addon/background.js discord/addon/settings.js discord/addon/settings.css \
-	discord/addon/emote-settings.html discord/addon/general-settings.html discord/addon/search-settings.html \
-	discord/addon/settings-wrapper.html discord/addon/subreddit-settings.html discord/addon/about.html \
-	discord/addon/updates.html discord/addon/search.css discord/addon/search-button.js
-
-DISCORD_SETTINGS_SCRIPT := \
-	discord/addon/utils.js discord/addon/emote-settings.js discord/addon/general-settings.js \
-	discord/addon/subreddit-settings.js discord/addon/search-settings.js discord/addon/updates.js \
-    discord/addon/settings.js
-
-DISCORD_INSTALLER := \
-    discord/installer/constants.js discord/installer/index.js discord/installer/package.json \
-    discord/installer/install_mac.command discord/installer/install_windows.bat discord/installer/win_ps.ps1 \
-    discord/installer/README.md
-
-DISCORD_INTEGRATION := \
-	discord/integration/package.json discord/integration/bpm.js discord/integration/bpm-settings.js \
-    discord/integration/bpm-search.js discord/integration/README.md
 
 default: build/betterponymotes.xpi build/chrome.zip build/BPM.safariextension build/export.json.bz2
 
@@ -205,6 +183,29 @@ build/BPM.safariextension: $(ADDON_DATA) addon/sf-Settings.plist addon/sf-backgr
 	cp addon/pref-setup.js build/BPM.safariextension
 
 	cd build/BPM.safariextension && zip ../BPM.safariextension.zip *
+
+#Set via environment variable
+#DC_BPM_ARCHIVE_PASSWORD= 
+
+DISCORD_ADDITONAL_DATA := \
+	discord/addon/background.js discord/addon/settings.js discord/addon/settings.css \
+	discord/addon/emote-settings.html discord/addon/general-settings.html discord/addon/search-settings.html \
+	discord/addon/settings-wrapper.html discord/addon/subreddit-settings.html discord/addon/about.html \
+	discord/addon/updates.html discord/addon/search.css discord/addon/search-button.js
+
+DISCORD_SETTINGS_SCRIPT := \
+	discord/addon/utils.js discord/addon/emote-settings.js discord/addon/general-settings.js \
+	discord/addon/subreddit-settings.js discord/addon/search-settings.js discord/addon/updates.js \
+    discord/addon/settings.js
+
+DISCORD_INSTALLER := \
+    discord/installer/constants.js discord/installer/index.js discord/installer/package.json \
+    discord/installer/install_mac.command discord/installer/install_windows.bat discord/installer/win_ps.ps1 \
+    discord/installer/README.md
+
+DISCORD_INTEGRATION := \
+	discord/integration/package.json discord/integration/bpm.js discord/integration/bpm-settings.js \
+    discord/integration/bpm-search.js discord/integration/README.md
 
 # Note, requires node, globally installed asar (npm install asar -g)
 build/discord/installer: $(DISCORD_INSTALLER)
