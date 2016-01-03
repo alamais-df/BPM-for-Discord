@@ -13,7 +13,7 @@ var BPM_updatesSubpanel = {
 };
 function BPM_checkForUpdates(silenceIfNone) {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://api.github.com/repos/ByzantineFailure/bpm/tags');
+    xhr.open('GET', 'https://api.github.com/repos/ByzantineFailure/bpm/releases');
     xhr.onreadystatechange = function() {
         if(xhr.readyState != 4) return;
         if(xhr.status !== 200 && xhr.status !== 304) {
@@ -21,9 +21,28 @@ function BPM_checkForUpdates(silenceIfNone) {
            return;
         }
         var response = JSON.parse(xhr.responseText);
-        var tags = response.map(function(tag) { return tag.name });
-        if(tags[0] !== codeVersion) {
-            alert('Current BPM for Discord version is ' + codeVersion + ', found version ' + tags[0] + '\n' +
+        //TODO:  Will fail if there's no non-prereleases ready.
+        //Not a problem, though, fairly isolated, doesn't break anything
+        //Still should fix.
+        var releaseTag = response
+            .filter(function(release) {
+                return !release.prerelease;
+            })
+            .sort(function(a, b) {
+                var aDate = new Date(a.created_at);
+                var bDate = new Date(b.created_at);
+                if(aDate > bDate) {
+                    return -1;
+                } else if (bDate > aDate) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            })
+            [0].tag_name;
+        
+        if(releaseTag !== codeVersion) {
+            alert('Current BPM for Discord version is ' + codeVersion + ', found version ' + releaseTag + '\n' +
                     'Link to updates can be found in the Updates panel of BPM settings.');
         } else if(!silenceIfNone) {
             alert('BPM up to date!');
