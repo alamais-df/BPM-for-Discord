@@ -31,8 +31,11 @@ The following build hooks are available:
 7. Packs `build/discord/addon` into `build/discord/bpm.asar` and deletes `build/discord/addon`
 
 The final contents of `build/discord` should now look like this:
+    
     /bpm.asar
+    
     /integration.asar
+    
     /CONTENTS-OF-`discord/installer`
 
 ### `make discord/release`
@@ -59,9 +62,9 @@ If you wish to perform a release that does _not_ notify users (for example if on
 
 ## Submodules
 
-* Installer
-* Integration
-* Addon
+* <a href="https://github.com/ByzantineFailure/bpm/tree/discord/discord/installer">Installer</a>
+* <a href="https://github.com/ByzantineFailure/bpm/tree/discord/discord/integration">Integration</a>
+* <a href="https://github.com/ByzantineFailure/bpm/tree/discord/discord/addon">Addon</a>
 
 See each subfolder for what each submodule does.
 
