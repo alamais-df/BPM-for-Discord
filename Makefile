@@ -41,7 +41,7 @@
 
 VERSION = 66.236
 
-DISCORD_VERSION = discord-v0.5.1-beta
+DISCORD_VERSION = discord-v0.5.2-beta
 
 CONTENT_SCRIPT := \
     addon/bpm-header.js addon/bpm-utils.js addon/bpm-browser.js \
