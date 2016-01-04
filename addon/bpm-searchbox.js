@@ -227,6 +227,9 @@ function init_search_ui(store) {
         store.sync_key("searchBoxInfo");
     });
 
+    //Keep the searchbox on the window
+    keep_on_window(sb_container);
+
     // Enable dragging the resize element around (i.e. resizing it)
     var search_box_width, search_box_height;
     enable_drag(sb_resize, function(event) {
