@@ -290,7 +290,6 @@ function enable_drag(element, start_callback, callback) {
             minY = CONTAINER_PADDING,
             maxX = window.innerWidth - CONTAINER_PADDING,
             maxY = window.innerHeight - CONTAINER_PADDING;
-
         if(event.clientX <= minX) {
             dx = minX - start_x;
         } else if (event.clientX >= maxX) {
@@ -303,7 +302,6 @@ function enable_drag(element, start_callback, callback) {
         }
         callback(event, dx, dy);
     });
-
 
     element.addEventListener("mousedown", catch_errors(function(event) {
         start_x = event.clientX;
