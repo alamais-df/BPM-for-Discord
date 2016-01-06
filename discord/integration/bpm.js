@@ -33,7 +33,7 @@ function BPM(mainWindow) {
 }
 
 BPM.prototype.init = function() {
-    self.mainWindow.webContents.openDevTools();
+    //self.mainWindow.webContents.openDevTools();
     getScripts().forEach(function(script) {
         self.mainWindow.webContents.executeJavaScript(script);
     });
