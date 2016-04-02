@@ -26,4 +26,5 @@ __pycache__
 /betterponymotes.pem
 /checktags-variants.log
 *.swp
+/node_modules
 
