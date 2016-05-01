@@ -44,17 +44,6 @@ VERSION = 66.244
 
 DISCORD_VERSION = discord-v0.8.4-beta
 
-# Discord release process:
-# - Bump DISCORD_VERSION (format = discord-v[semantic version]-[alpha/beta/release])
-# - Commit code to git
-# $ make release/discord
-# - Upload generated 7z to tag's release on Github, flag draft as pre-release (maybe automate in the future)
-# - Smoke test release locally
-# - Flag pre-release as ready, edited and good to go 
-# - Notify interested parties
-
-DISCORD_VERSION = discord-v0.8.3-beta
-
 CONTENT_SCRIPT := \
     addon/bpm-header.js addon/bpm-utils.js addon/bpm-browser.js \
     addon/bpm-store.js addon/bpm-search.js addon/bpm-inject.js \
