@@ -197,11 +197,11 @@ DISCORD_SETTINGS_SCRIPT := \
     discord/addon/settings/general.js discord/addon/settings/search.js \
     discord/addon/settings/subreddits.js discord/addon/settings/updates.js \
     discord/addon/settings/settings.js discord/addon/utils.js \
-    discord/addon/updates/update-functions.js \
+    discord/addon/updates/update-functions.js discord/addon/settings/custom-css.js \
 	discord/addon/settings/html/emotes.html discord/addon/settings/html/general.html \
 	discord/addon/settings/html/search.html discord/addon/settings/html/base-panel.html \
 	discord/addon/settings/html/subreddits.html discord/addon/settings/html/about.html \
-	discord/addon/settings/html/updates.html 
+	discord/addon/settings/html/updates.html discord/addon/settings/html/custom-css.html
 
 DISCORD_UPDATES_SCRIPT := \
 	discord/addon/updates/update-functions.js discord/addon/updates/updates.js \

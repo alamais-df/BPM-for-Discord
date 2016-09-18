@@ -46,6 +46,12 @@ function setOption(option, value) {
     window.dispatchEvent(bpmEvent);
 }
 
+function sendMessage(data) {
+    var bpmEvent = new CustomEvent('bpm_message')
+    bpmEvent.data = data;
+    window.dispatchEvent(bpmEvent);
+}
+
 function retrievePrefs(callback) {
     var prefsListener = function(e) {
         var message = e.data;

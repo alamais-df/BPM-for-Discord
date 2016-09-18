@@ -31,6 +31,7 @@ var BPM_utils = require('../utils.js'),
     subreddits = require('./subreddits.js'),
     search = require('./search.js'),
     updates = require('./updates.js'),
+    customCss = require('./custom-css.js'),
     about = require('./about.js');
 
 //Maps subpanel requests to their corresponding init/teardown objects
@@ -40,6 +41,7 @@ var subpanelMap = {
     insert_subreddit_settings: subreddits,
     insert_search_settings: search,
     insert_updates: updates,
+    insert_customCss: customCss,
     insert_about: about
 };
 
