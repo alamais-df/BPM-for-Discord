@@ -4,6 +4,14 @@
 .bpm-emote-search-button:hover {
     border-color: hsla(0, 0%, 100%, .4);
 }
+.bpm-emote-search-button-bottom-left {
+    margin-bottom: 25px;
+    margin-left: 25px;
+    border: 2px;
+    border-style: solid;
+    border-color: hsla(0, 0%, 100%, .04);
+    margin-right: 10px !important;
+}
 
 .bpm-emote-search-button {
     width: 25px;
