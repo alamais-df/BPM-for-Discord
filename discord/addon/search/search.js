@@ -6,20 +6,52 @@
  **/
 require('!style!css!./search.css');
 
-var BPM_utils = require('../utils.js');
+var BPM_utils = require('../utils.js'),
+    searchButton;
+
 
 function modifyHelpContainer(container) {
     container.className += ' bpm-help-container';
     createSearchButton(container);
 }
 
-//We rely on BPM's core code to attach this listener
+// We rely on BPM's core code to attach this listener.
+// We also store this button in a module-global scope 
+// because we are bad people and cannot maintain a consistent
+// reference to it otherwise.
 function createSearchButton(container) {
-    var searchButton = document.createElement('div');
+    searchButton = document.createElement('button');
     searchButton.className = 'bpm-emote-search-button';
-     
+    
     container.appendChild(searchButton);
+    listenOnAppChange();
 }
 
-BPM_utils.waitForElementByClass('guilds-wrapper', modifyHelpContainer);
+function listenOnAppChange() {
+    var appDiv = document.getElementsByClassName('app')[0];
+    var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(e) {
+            var headerToolbar = document.getElementsByClassName('header-toolbar')[0];
+            if(!headerToolbar) {
+                return;
+            }
+            
+            var button = document.getElementsByClassName('bpm-emote-search-button')[0];
+            if(button) {
+                return;
+            }
+            
+            var firstToolbarButton = headerToolbar.childNodes[0];
+            if(!firstToolbarButton) {
+                headerToolbar.appendChild(searchButton);
+            } else {
+                headerToolbar.insertBefore(searchButton, firstToolbarButton); 
+            }
+        });
+    });
+
+    observer.observe(appDiv, { childList: true, subtree: true });
+}
+
+BPM_utils.waitForElementByClass('header-toolbar', createSearchButton);
 
