@@ -37,11 +37,15 @@ function listenOnAppChange() {
             }
             
             var button = document.getElementsByClassName('bpm-emote-search-button')[0];
+            var firstToolbarButton = headerToolbar.childNodes[0];
             if(button) {
+                // Move the button to the farthest-left position
+                if (firstToolbarButton && firstToolbarButton !== button) {
+                    headerToolbar.insertBefore(searchButton, firstToolbarButton); 
+                }
                 return;
             }
             
-            var firstToolbarButton = headerToolbar.childNodes[0];
             if(!firstToolbarButton) {
                 headerToolbar.appendChild(searchButton);
             } else {
