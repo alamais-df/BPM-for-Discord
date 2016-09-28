@@ -2,7 +2,11 @@
  * BPM for Discord
  * (c) 2015-2016 ByzantineFailure
  *
- * Adds the search button to the discord UI
+ * Adds the search button to the discord UI.  The
+ * listener which opens the window when the button
+ * is pressed is actually added by core.js -- so,
+ * we just create the button and maintain a reference
+ * to the node.
  **/
 require('!style!css!./search.css');
 
@@ -29,6 +33,13 @@ function createSearchButton(prefs) {
     });
 }
 
+// The elements which contain the actual header and buttons
+// for the top-right search button are often removed and re-added
+// by discord's React code.  So, we need to wait for and React (hehe)
+// to those DOM events to re-add the button if it doesn't exist.
+// This listener is SUPER-noisy and presents an unfortunate amount
+// of CPU overhead, but there's no other choice unless we actually
+// hook into Discord's React code somehow (we cannot do that).
 function listenOnAppChange() {
     var appDiv = document.getElementsByClassName('app')[0];
     var observer = new MutationObserver(function(mutations) {
@@ -41,7 +52,8 @@ function listenOnAppChange() {
             var button = document.getElementsByClassName('bpm-emote-search-button')[0];
             var firstToolbarButton = headerToolbar.childNodes[0];
             if(button) {
-                // Move the button to the farthest-left position
+                // Move the button to the farthest-left position if it already exists
+                // and isn't already there.
                 if (firstToolbarButton && firstToolbarButton !== button) {
                     headerToolbar.insertBefore(searchButton, firstToolbarButton); 
                 }
@@ -59,12 +71,5 @@ function listenOnAppChange() {
     observer.observe(appDiv, { childList: true, subtree: true });
 }
 
-// So:  we need to somehow init prefs BEFORE binding the listener
-// to the search button.  This means we probably need to actually
-// create some kind of message to bind the search button once it's 
-// done being created but AFTER prefs.  Oy vey.
-window.setTimeout(function() {
-    BPM_utils.retrievePrefs(createSearchButton);
-}, 500);
-console.log('waiting for search prefs');
+BPM_utils.retrievePrefs(createSearchButton);
 
