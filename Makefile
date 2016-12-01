@@ -312,8 +312,8 @@ discord/release: discord
 	fi
 	
 	#Push a tag to git
-	#git tag -a "$(DISCORD_VERSION)" -m "Release of discord version $(DISCORD_VERSION)" 
-	#git push origin $(DISCORD_VERSION) 
+	git tag -a "$(DISCORD_VERSION)" -m "Release of discord version $(DISCORD_VERSION)" 
+	git push origin $(DISCORD_VERSION) 
 	
 	#Create a 7z archive
 	rm -rf ./build/BPM\ for\ Discord\ $(DISCORD_VERSION).7z
@@ -332,7 +332,9 @@ discord/release: discord
 
 discord/upload-release:
 	NOTES_TEXT=$$(cat build/DISCORD_RELEASE_NOTES.md);\
-	curl -X POST -H "Authorization: token $(DISCORD_RELEASE_GITHUB_API_TOKEN)" --data \
+	Z_NAME_PARAM="name=BPM%20for%20Discord%20$(DISCORD_VERSION).7z";\
+	JS_NAME_PARAM="name=betterDiscord-bpm.plugin.js";\
+	UPLOAD_URL=$$(curl -X POST -H "Authorization: token $(DISCORD_RELEASE_GITHUB_API_TOKEN)" --data \
 		"{\
 			\"tag_name\":\"$(DISCORD_VERSION)\",\
 			\"target_commitish\":\"$(DISCORD_RELEASE_BASE_BRANCH)\",\
@@ -341,5 +343,11 @@ discord/upload-release:
 			\"draft\":true,\
 			\"prerelease\":true\
 		}"\
-		"$(GITHUB_API_HOST)/repos/$(GITHUB_USER)/$(GITHUB_REPO_NAME)/releases" 
+		"$(GITHUB_API_HOST)/repos/$(GITHUB_USER)/$(GITHUB_REPO_NAME)/releases" \
+		| jq '.upload_url' | sed 's/"//g' | sed 's/name,label}//g' | sed 's/{//g' ); \
+    #echo $$UPLOAD_URL; \
+	#echo curl -X POST -H "Authoriztion: token $(DISCORD_RELEASE_GITHUB_API_TOKEN)" -H "Content-Type: application/x-7z-compressed" \
+	#	--data @./build/BPM\ for\ Discord\ $(DISCORD_VERSION).7z $$UPLOAD_URL$$Z_NAME_PARAM;\
+	#echo curl -X POST -H "Authoriztion: token $(DISCORD_RELEASE_GITHUB_API_TOKEN)" -H "Content-Type: application/javascript" \
+	#	--data @./build/better-discord/betterDiscord-bpm.plugin.js "$$UPLOAD_URL$$JS_NAME_PARAM";
 
