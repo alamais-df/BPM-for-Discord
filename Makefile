@@ -42,8 +42,8 @@ VERSION = 66.253
 # - Flag pre-release as ready, edited and good to go 
 # - Notify interested parties
 
-DISCORD_VERSION = TEST_RELEASE_TAG
-DISCORD_RELEASE_BASE_BRANCH = automate-release-notes
+DISCORD_VERSION = discord-v0.8.14-beta
+DISCORD_RELEASE_BASE_BRANCH = discord
 GITHUB_API_HOST = https://api.github.com
 GITHUB_USER = ByzantineFailure
 GITHUB_REPO_NAME = BPM-for-Discord
