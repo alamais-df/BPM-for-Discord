@@ -305,6 +305,7 @@ discord/release: discord
 	cat discord/RELEASE_NOTES.md | python -c 'import sys,json;print(json.dumps(sys.stdin.read()))' > build/DISCORD_RELEASE_NOTES.md
 	git add discord/RELEASE_NOTES.md	
 	git commit -m "Adding release notes for $(DISCORD_VERSION)"
+	git push
 	
 	#Make sure we know what we're releasing
 	git status 
