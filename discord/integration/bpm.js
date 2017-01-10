@@ -13,6 +13,7 @@ module.exports = BPM;
 var path = require('path'),
     fs = require('fs'),
     bpmDir = getBpmDir(),
+    settingsInstance = require('./settings.js')(bpmDir),
     self;
 
 function getBpmDir() {
@@ -34,6 +35,8 @@ function BPM(mainWindow) {
 }
 
 BPM.prototype.init = function() {
+    settingsInstance.init(self.mainWindow);
+
     var scripts = getScripts();
     self.mainWindow.webContents.on('dom-ready', function() {
         scripts.forEach(function(script) {
@@ -42,6 +45,8 @@ BPM.prototype.init = function() {
     });
 };
 
+
+// Reading scripts, custom scripts
 function readAddonFile(filename) {
     return fs.readFileSync(path.join(bpmDir, filename), 'utf-8');
 }

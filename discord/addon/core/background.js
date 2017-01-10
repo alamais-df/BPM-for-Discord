@@ -1,9 +1,14 @@
 /*******************************************************************************
 **
 ** This file is part of BPM for Discord.
-** Copyright (c) 2015-2016 ByzantineFailure.
+** Copyright (c) 2015-2017 ByzantineFailure.
 ** 
-** Much of this file is copy-pasted with some tweaks from BPM proper
+** Much of this file is copy-pasted with some tweaks from BPM proper.
+** IS_BETTER_DISCORD is set inside the betterDiscord header file (/discord/betterDiscord/header.js)
+**
+** sendSyncSettingsMessage and sendAsyncSettingsMessage are executed and written in 
+** in the integration layer (/discord/integration/settings.js)
+**
 ** Copyright (c) 2012-2015 Typhos.
 **
 ** This program is free software: you can redistribute it and/or modify it
@@ -27,16 +32,56 @@ var manage_prefs = require('./pref-setup').manage_prefs,
     resources = require('./bpm-resources'),
     sr_name2id = resources.sr_name2id;
 
+// Init prefs.  Eventually remove localStorage use
+var prefs_start = localStorage.prefs ? localStorage.prefs : {};
+var stored_prefs = IS_BETTER_DISCORD ? {} : sendSyncSettingsMessage('read_settings');
+var dataCache = {
+    prefs: Object.assign(prefs_start, stored_prefs)
+};
+localStorage.prefs = dataCache.prefs
+
 (function() {
-if(localStorage.prefs === undefined) {
-    localStorage.prefs = "{}";
+
+function bpm_read_json(key) {
+    return dataCache[key] === undefined ? undefined : JSON.parse(dataCache[key]);
+}
+function bpm_read_value(key) {
+    return dataCache[key];
+}
+function bpm_write_value(key, data) {
+    dataCache[key] = data;
+    localStorage[key] = data;
+    sendAsyncSettingsMessage('write_settings', dataCache);
+}
+function bpm_write_json(key, data) {
+    var serialized = JSON.stringify(data);
+    dataCache[key] = serialized;
+    localStorage[key] = serialized;
+    sendAsyncSettingsMessage('write_settings', dataCache);
+}
+
+//TODO: Implement BD's storage system here
+function bd_read_json(key) {
+    return dataCache[key] === undefined ? undefined : JSON.parse(dataCache[key]);
+}
+function bd_read_value(key) {
+    return dataCache[key];
+}
+function bd_write_value(key, data) {
+    dataCache[key] = data;
+    localStorage[key] = data;
+}
+function bd_write_json(key, data) {
+    var serialized = JSON.stringify(data);
+    dataCache[key] = serialized;
+    localStorage[key] = serialized;
 }
 
 var pref_manager = manage_prefs(sr_name2id, {
-    read_value: function(key) { return localStorage[key]; },
-    write_value: function(key, data) { localStorage[key] = data; },
-    read_json: function(key) { return localStorage[key] === undefined ? undefined : JSON.parse(localStorage[key]); },
-    write_json: function(key, data) { localStorage[key] = JSON.stringify(data); },
+    read_value: IS_BETTER_DISCORD ? bd_read_value : bpm_read_value,
+    write_value: IS_BETTER_DISCORD ? bd_write_value : bpm_write_value,
+    read_json: IS_BETTER_DISCORD ? bd_read_json : bpm_read_json,
+    write_json: IS_BETTER_DISCORD ? bd_write_json : bpm_write_json, 
 
     download_file: function(done, url, callback) {
         var request = new XMLHttpRequest();

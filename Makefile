@@ -195,7 +195,8 @@ build/BPM.safariextension: $(ADDON_DATA) addon/sf-Settings.plist addon/sf-backgr
 #DC_BPM_ARCHIVE_PASSWORD= 
 
 DISCORD_INTEGRATION := \
-	discord/integration/package.json discord/integration/bpm.js discord/integration/README.md
+	discord/integration/package.json discord/integration/bpm.js discord/integration/settings.js \
+	discord/integration/README.md
 
 DISCORD_SETTINGS_SCRIPT := \
     discord/addon/settings/about.js discord/addon/settings/emotes.js \
