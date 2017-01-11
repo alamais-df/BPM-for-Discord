@@ -30,18 +30,21 @@
 
 var manage_prefs = require('./pref-setup').manage_prefs,
     resources = require('./bpm-resources'),
-    sr_name2id = resources.sr_name2id;
+    sr_name2id = resources.sr_name2id,
+    BD_PLUGIN_NAME = "BetterPonymotes",
+    BD_PREFS_NAME = "BPM_Prefs";
 
 // Init prefs.  Eventually remove localStorage use
 var prefs_start = localStorage.prefs ? localStorage.prefs : {};
-var stored_prefs = IS_BETTER_DISCORD ? {} : sendSyncSettingsMessage('read_settings');
+var stored_prefs = IS_BETTER_DISCORD ? bdPluginStorage.get(BD_PLUGIN_NAME, BD_PREFS_NAME) 
+    : sendSyncSettingsMessage('read_settings');
 var dataCache = {
     prefs: Object.assign(prefs_start, stored_prefs)
 };
 localStorage.prefs = dataCache.prefs
 
 (function() {
-
+// BPM Native preferences storage
 function bpm_read_json(key) {
     return dataCache[key] === undefined ? undefined : JSON.parse(dataCache[key]);
 }
@@ -60,7 +63,7 @@ function bpm_write_json(key, data) {
     sendAsyncSettingsMessage('write_settings', dataCache);
 }
 
-//TODO: Implement BD's storage system here
+// BetterDiscord-based preferences storage
 function bd_read_json(key) {
     return dataCache[key] === undefined ? undefined : JSON.parse(dataCache[key]);
 }
@@ -70,11 +73,13 @@ function bd_read_value(key) {
 function bd_write_value(key, data) {
     dataCache[key] = data;
     localStorage[key] = data;
+    bdPluginStorage.set(BD_PLUGIN_NAME, BD_PREFS_NAME, dataCache);
 }
 function bd_write_json(key, data) {
     var serialized = JSON.stringify(data);
     dataCache[key] = serialized;
     localStorage[key] = serialized;
+    bdPluginStorage.set(BD_PLUGIN_NAME, BD_PREFS_NAME, dataCache);
 }
 
 var pref_manager = manage_prefs(sr_name2id, {
