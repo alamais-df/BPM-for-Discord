@@ -80,8 +80,6 @@ var settingsObserver = new MutationObserver(function(mutations) {
         // Return if we're not adding the options layer
         if(mutation.type != 'childList' || 
            mutation.addedNodes.length === 0 || 
-           // Because text nodes also come through here?
-           //mutation.addedNodes[0].nodeType !== 1 ||
            !mutation.addedNodes[0].querySelector('.layer > .ui-standard-sidebar-view')) {
             return;
         }
