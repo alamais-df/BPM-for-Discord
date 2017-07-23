@@ -367,7 +367,7 @@ function manage_emote_list(prefs, name) {
 }
 
 function run(prefs) {
-    manage_option(prefs, "enableGlobalEmotes");
+    //manage_option(prefs, "enableGlobalEmotes");
     manage_option(prefs, "enableNSFW");
     manage_option(prefs, "enableExtraCSS");
     manage_option(prefs, "showUnknownEmotes");
