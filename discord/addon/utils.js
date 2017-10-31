@@ -14,13 +14,28 @@ module.exports = {
     waitByQuerySelector: waitByQuerySelector
 };
 
-function waitForElementByClass(elementClass, callback) {
-    var element = document.getElementsByClassName(elementClass);
-    if(element.length == 0) {
-        window.setTimeout(function() { waitForElementByClass(elementClass, callback); }, 100);
-    } else {
-        callback(element[0]);
-    }
+function waitForElementByClass(parent, elementClass, callback) {
+	if (Array.isArray(elementClass)) {
+		currentElement = elementClass.shift();
+		var element = parent.getElementsByClassName(currentElement);
+		if(element.length == 0) {
+			elementClass.unshift(currentElement);
+			window.setTimeout(function() { waitForElementByClass(parent, elementClass, callback); }, 100);
+		} else {
+			if (elementClass.length > 0) {
+				waitForElementByClass(element[0], elementClass, callback);
+			} else {
+				callback(element[0]);
+			}
+		}
+	} else {
+		var element = parent.getElementsByClassName(elementClass);
+		if(element.length == 0) {
+			window.setTimeout(function() { waitForElementByClass(parent, elementClass, callback); }, 100);
+		} else {
+			callback(element[0]);
+		}
+	}
 }
 
 function waitForElementById(id, callback) {
