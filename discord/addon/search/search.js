@@ -18,8 +18,8 @@ var BPM_utils = require('../utils.js'),
 // because we are bad people and cannot maintain a consistent
 // reference to it otherwise.
 function createSearchButton(prefs) {
-    var className = prefs.searchButtonTopRight ? 'header-toolbar' : 'guilds-wrapper';
-    BPM_utils.waitForElementByClass(className, function(container) {
+    var className = prefs.searchButtonTopRight ? ['title-qAcLxz', 'flex-lFgbSz'] : 'guilds-wrapper';
+    BPM_utils.waitForElementByClass(document, className, function(container) {
         var elementType = prefs.searchButtonTopRight ? 'button' : 'div';
         
         searchButton = document.createElement(elementType);
@@ -44,7 +44,7 @@ function listenOnAppChange() {
     var appDiv = document.getElementsByClassName('app')[0];
     var observer = new MutationObserver(function(mutations) {
         mutations.forEach(function(e) {
-            var headerToolbar = document.getElementsByClassName('header-toolbar')[0];
+            var headerToolbar = document.getElementsByClassName('title-qAcLxz')[0].getElementsByClassName('flex-lFgbSz')[0];
             if(!headerToolbar) {
                 return;
             }
